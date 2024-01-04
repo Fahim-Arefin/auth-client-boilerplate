@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 import {
   GoogleAuthProvider,
@@ -15,6 +15,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import app from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const provider = new GoogleAuthProvider();
 const AuthContext = createContext();
@@ -23,7 +24,8 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const auth = getAuth(app);
-  const baseURL = "http://localhost:5000";
+  const axiosSecure = useAxiosSecure();
+  // const baseURL = "http://localhost:5000";
   //   const baseURL = "https://metroshelter-server-side.vercel.app";
 
   useEffect(() => {
@@ -40,19 +42,13 @@ function AuthProvider({ children }) {
       // JWT Token
       // If current user exist we issue a token
       if (currentUser) {
-        axios
-          .post(`${baseURL}/jwt`, loggedInUser, { withCredentials: true })
-          .then((res) => {
-            console.log("Token Response: ", res.data);
-          });
+        axiosSecure.post(`/jwt`, loggedInUser).then((res) => {
+          console.log("Token Response: ", res.data);
+        });
       } else {
-        axios
-          .post(`${baseURL}/logout`, loggedInUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
+        axiosSecure.post(`/logout`, loggedInUser).then((res) => {
+          console.log(res.data);
+        });
       }
     });
 
@@ -120,7 +116,7 @@ function AuthProvider({ children }) {
     logOut,
     successToast,
     errorToast,
-    baseURL,
+    // baseURL,
     setLoading,
   };
 
