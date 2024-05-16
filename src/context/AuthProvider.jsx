@@ -82,7 +82,7 @@ function AuthProvider({ children }) {
 
   const successToast = (msg, time = false) => {
     toast.success(msg, {
-      position: "top-center",
+      position: "top-right",
       autoClose: time,
       hideProgressBar: false,
       closeOnClick: true,
@@ -95,7 +95,7 @@ function AuthProvider({ children }) {
 
   const errorToast = (msg, time = false) => {
     toast.error(msg, {
-      position: "top-center",
+      position: "top-right",
       autoClose: time,
       hideProgressBar: false,
       closeOnClick: true,

@@ -82,7 +82,7 @@ function App() {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        console.log("Google user login", user);
 
         axiosPublic.get(`/users/${result?.user?.email}`).then((res) => {
           if (!res.data) {
@@ -115,7 +115,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>CricSync | Login</title>
+        <title>TechHireHub | Login</title>
       </Helmet>
       <div className="grid grid-cols-2 min-h-screen">
         <div className="col-span-2 lg:col-span-1 flex justify-center items-center">
@@ -123,7 +123,7 @@ function App() {
             {/* heading */}
             <div className="space-y-4">
               <h1 className="text-[#b4b4b4] text-4xl font-semibold">
-                We Are <span className="text-[#f87060]">CricSync</span>
+                We Are <span className="text-[#f87060]">TechHireHub</span>
               </h1>
               <p className="text-[16px] text-[#9f9f9f] ">
                 Please fill up data to login <br /> to your account

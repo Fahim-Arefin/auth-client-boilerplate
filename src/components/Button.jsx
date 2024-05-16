@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Button({ children, primary, secondary, outline, ...rest }) {
+function Button({ children, primary, secondary, outline, reject, ...rest }) {
   let primaryStyle = ` border-none bg-[#f87060] font-semibold  tracking-wide
   transition-all duration-150 hover:bg-[#d65a4b] focus:outline-none focus:ring focus:ring-[#d65a4b] 
   focus:ring-offset-2 active:bg-[#ba4b3d] disabled:cursor-not-allowed disabled:bg-[#fca08e]`;
@@ -16,6 +16,10 @@ function Button({ children, primary, secondary, outline, ...rest }) {
   let secondaryOutline = ` border border-gray-700 font-semibold  tracking-wide
   transition-all duration-150 hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-700
   focus:ring-offset-2 active:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-200 hover:text-white`;
+
+  let rejectStyle = ` border-none bg-rose-500  font-semibold  tracking-wide
+  transition-all duration-150 hover:bg-rose-600 focus:outline-none focus:ring focus:ring-rose-700 
+  focus:ring-offset-2 active:bg-rose-600 disabled:cursor-not-allowed disabled:bg-gray-200  text-white`;
 
   // let secondaryStyle = ` border-none bg-[#b4b4b4] font-semibold  tracking-wide
   // transition-all duration-150 hover:bg-[#9e9d9d] focus:outline-none focus:ring focus:ring-[#9e9d9d]
@@ -63,6 +67,8 @@ function Button({ children, primary, secondary, outline, ...rest }) {
             ? outline
               ? secondaryOutline
               : secondaryStyle
+            : reject
+            ? rejectStyle
             : ""
         } ${rest.className}`}
       >

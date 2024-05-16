@@ -1,29 +1,30 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Button from "./Button";
 import { FiLogIn } from "react-icons/fi";
 import useAuth from "../hooks/useAuth";
+import UserDropdown from "./UserDropdown";
 
 function Navbar({ className }) {
-  const { user, logOut } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  // const navigate = useNavigate();
   console.log(user);
   console.log(user?.photoURL);
 
-  const handleLogOut = () => {
-    logOut()
-      .then(() => {
-        // console.log("Logged out");
-        navigate("/login");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  // const handleLogOut = () => {
+  //   logOut()
+  //     .then(() => {
+  //       // console.log("Logged out");
+  //       navigate("/login");
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   return (
     <div
-      className={`sticky shadow-2xl top-0 bg-white  z-50 px-12 mx-auto navbar ${className}`}
+      className={`sticky shadow-md top-0 bg-white  z-50 px-12 mx-auto navbar ${className}`}
       style={{ fontWeight: 500 }}
     >
       <div className="navbar-start">
@@ -53,7 +54,10 @@ function Navbar({ className }) {
             </li>
 
             <li>
-              <NavLink to="/properties">All Properties</NavLink>
+              <NavLink to="/hire">Hire Technician</NavLink>
+            </li>
+            <li>
+              <NavLink to="/service/request">Requested Services</NavLink>
             </li>
             {user && (
               <li>
@@ -72,28 +76,37 @@ function Navbar({ className }) {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex ">
-        <ul className="option-menu flex space-x-4 text-gray-700 text-lg tracking-wide">
+        <ul className="option-menu flex space-x-4 text-[#555] text-xs uppercase tracking-wide">
           <li>
             <NavLink
-              className="cursor-pointer font-semibold hover:border-b-2 hover:border-b-[#f87060] transition-all duration-150 px-4 py-1 rounded-sm "
+              className="cursor-pointer hover:border-b hover:border-b-[#f87060] hover:text-[#f87060] transition-all duration-150 px-1 py-1 rounded-sm "
               to="/"
             >
               Home
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              className="cursor-pointer hover:border-b hover:border-b-[#f87060] hover:text-[#f87060] transition-all duration-150 px-1 py-1 rounded-sm "
+              to="/hire"
+            >
+              Hire Technician
+            </NavLink>
+          </li>
 
           <li>
             <NavLink
-              className="cursor-pointer font-semibold hover:border-b-2 hover:border-b-[#f87060] transition-all duration-150 px-4 py-1 rounded-sm "
-              to="/properties"
+              className="cursor-pointer hover:border-b hover:border-b-[#f87060] hover:text-[#f87060] transition-all duration-150 px-1 py-1 rounded-sm "
+              to="/service/request"
             >
-              All properties
+              Requested Services
             </NavLink>
           </li>
+
           {user && (
             <li>
               <NavLink
-                className="cursor-pointer font-semibold hover:border-b-2 hover:border-b-[#f87060] transition-all duration-150 px-4 py-1 rounded-sm "
+                className="cursor-pointer hover:border-b hover:border-b-[#f87060] hover:text-[#f87060] transition-all duration-150 px-1 py-1 rounded-sm "
                 to="/dashboard"
               >
                 Dashboard
@@ -104,63 +117,14 @@ function Navbar({ className }) {
       </div>
       <div className="navbar-end">
         {user ? (
-          <div className="dropdown dropdown-end z-50">
-            <label
-              tabIndex={0}
-              className="btn btn-ghost btn-circle avatar relative group"
-            >
-              <div className="w-10 rounded-full">
-                <img src={`${user.photoURL}`} />
-              </div>
-              <div
-                className="invisible group-hover:visible absolute right-12 top-4 w-32 h-[50px]
-              opacity-0 transition-all duration-300 group-hover:opacity-100 mr-2 text-center "
-              >
-                <p className="">{user?.displayName}</p>
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-            >
-              <li className="hover:bg-[#aea1ea] rounded-lg">
-                <a className="hover:text-white transition-all duration-150">
-                  {user?.displayName}
-                </a>
-              </li>
-              <li
-                className="hover:bg-[#aea1ea] rounded-lg"
-                onClick={handleLogOut}
-              >
-                <a className="hover:text-white transition-all duration-150">
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </div>
+          <UserDropdown />
         ) : (
-          // <div className="flex justify-center items-center space-x-2">
-          //   <div>
-          //     <div>
-          //       <img src="./defaultProPic.png" alt="" />
-          //     </div>
-          //     <div>
-          //       <span>fahim</span>
-          //     </div>
-          //   </div>
-          //   <div>log out</div>
-          // </div>
           <div>
-            {/* <Link to="/login">
-              <button className="border border-[#aea1ea] text-zinc-800 px-3 py-2 rounded-md hover:bg-[#9b8ed7] active:bg-[#aea1ea]">
-                Log in
-              </button>
-            </Link> */}
             <Button
               to="/login"
               primary
               outline
-              className="px-4 py-2.5 flex space-x-2 rounded-sm"
+              className="px-3 py-2 flex space-x-2 rounded-sm text-xs"
             >
               <FiLogIn className="mt-[3px]" />
               <span>Log In</span>
